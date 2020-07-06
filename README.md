@@ -1,4 +1,24 @@
 # Koffer OpenShift Artifact Collection
+## Provides
+This automation provides a unified and standardized tarball of artifacts for
+airgap infrastructure deployment tasks.
+
+## About
+Koffer OpenShift uses the Koffer runtime container to enable streamlined 
+low side capture of all required artifacts for deploying OpenShift 
+infrastructure to "high side" airgaped environments in a standard 
+"registry < to > mirror" workflow model.
+
+Features:
+  - High side service enablemet via `cloudctl` podman pod running:
+    - ContainerOne user automation deployment and development workspace
+    - Generic Docker Registry:2 for serving pre-hydrated image content
+    - Nginx for serving CoreOS Ignition files
+  - High side automation for automatic pod standup on CoreOS or any Podman capable host
+  - High side sha256 verification of artifacts bundle before standup
+  - Low side injestion to "pre-hydrated" registry stateful path
+
+## Run
 ### 1. Clone into koffer directory
 ```
 git clone https://github.com/containercraft/koffer-openshift.git /tmp/koffer

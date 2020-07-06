@@ -1,13 +1,13 @@
 ## Developer Guide
 ------------
-#### 0. (OPTIONAL) Locally Build the Koffer image
+#### 1. Clone codebase under development
 ```
-curl -L https://git.io/JJIBr | bash
+ git clone https://github.com/containercraft/koffer-openshift.git /tmp/koffe
 ```
-#### 1. Prepare Developer Environment
+#### 2. Prepare Developer Environment
   a. Create persistence directories
 ```
-mkdir -p /tmp/{koffer,mirror,images,docker}
+mkdir -p /tmp/{mirror,images,docker}
 ```
   b. Stash pull secret
 >  - Copy Quay.io Pull Secret
@@ -18,14 +18,14 @@ mkdir -p /tmp/{koffer,mirror,images,docker}
 ```
 vim /tmp/docker/config.json
 ```
-#### 2. Run Container
+#### 3. Run Container
   - Option A. Run with persistent image storage for faster run times
 ```
 sudo podman run \
     --entrypoint entrypoint                        \
     --rm -it -h koffer --name koffer               \
     --volume /tmp/docker:/root/.docker:z           \
-    --volume /tmp/koffer:/root/deploy/koffer:z     \
+    --volume /tmp/koffer:/root/koffer:z            \
     --volume /tmp/mirror:/root/deploy/mirror:z     \
     --volume /tmp/images:/root/deploy/images:z     \
   docker.io/containercraft/koffer:nightlies
@@ -34,12 +34,12 @@ sudo podman run \
   - Option B. Exec into container for manual development
 ```
 sudo podman run \
-    --entrypoint bash                          \
-    --rm -it -h koffer --name koffer           \
-    --volume /tmp/docker:/root/.docker:z       \
-    --volume /tmp/koffer:/root/deploy/koffer:z \
-    --volume /tmp/mirror:/root/deploy/mirror:z \
-    --volume /tmp/images:/root/deploy/images:z \
+    --entrypoint bash                              \
+    --rm -it -h koffer --name koffer               \
+    --volume /tmp/docker:/root/.docker:z           \
+    --volume /tmp/koffer:/root/koffer:z            \
+    --volume /tmp/mirror:/root/deploy/mirror:z     \
+    --volume /tmp/images:/root/deploy/images:z     \
   docker.io/containercraft/koffer:nightlies
 ```
   - Then manually exec the `/usr/bin/entrypoint` actions
@@ -54,12 +54,12 @@ sudo podman run \
  ./bundle.yml
  du -sh /root/deploy/koffer/koffer-bundle.*.tar
 ```
-#### 3. Place bundle on CloudCtl Bastion host /tmp directory
+#### 4. Place bundle on CloudCtl Bastion host /tmp directory
 ```
 rsync --progress -avzh $(ls /tmp/koffer/koffer-bundle.*.tar) \
   -e "ssh -i ~/.ssh/id_rsa" core@${bastion_address}:/tmp/
 ```
-#### 4. Aquire root & unpack tarball
+#### 5. Aquire root & unpack tarball
 ```
 sudo -i
 ```
@@ -67,10 +67,10 @@ sudo -i
 tar -xv -C /root -f /tmp/koffer-bundle.*.tar
 ```
 #### 5. Run CloudCtl stand up script
-```
+```  6
  ./start-cloudctl.sh
 ```
-#### 6. Exec into CloudCtl
+#### 7. Exec into CloudCtl
 ```
  podman exec -it cloudctl-one connect
 ```
