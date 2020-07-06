@@ -1,4 +1,4 @@
-# Koffer OpenShift Artifact Collector
+# Koffer OpenShift Infra Artifact Collector
 ## Provides
 This automation provides a unified and standardized tarball of artifacts for
 airgap infrastructure deployment tasks.
