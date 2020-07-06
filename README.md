@@ -6,10 +6,10 @@ git clone https://github.com/containercraft/koffer-openshift.git /tmp/koffer
 ### 2. Run Koffer
 ```
 sudo podman run \
-    --rm -qit -h koffer --name koffer              \
-    --volume ~/.docker:/root/.docker               \
-    --volume /tmp/koffer:/root/deploy/koffer:z     \
-    --pull=always --entrypoint=/usr/bin/entrypoint \
+    --rm -qit -h koffer --name koffer     \
+    --pull=always --entrypoint entrypoint \
+    --volume ~/.docker:/root/.docker      \
+    --volume /tmp/koffer:/root/koffer:z   \
   docker.io/containercraft/koffer:latest
 ```
   - optional: volume mount quay pull secret from host    
