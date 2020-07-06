@@ -1,5 +1,5 @@
-# Koffer | Artifact Rake & Bundle Appliance
-### 1. Create Koffer Bundle Directory
+# Koffer OpenShift Artifact Collection
+### 1. Clone into koffer directory
 ```
 git clone https://github.com/containercraft/koffer-openshift.git /tmp/koffer
 ```
