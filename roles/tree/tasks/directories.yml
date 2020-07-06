@@ -9,6 +9,7 @@
     - '{{ dir_deploy }}/secrets/registry/auth'
     - '{{ dir_deploy }}/secrets/ssh'
     - '{{ dir_deploy }}/terraform'
+    - '{{ dir_koffer }}/bundle'
     - '{{ dir_deploy }}/ansible'
     - '{{ dir_deploy }}/mirror'
     - '{{ dir_deploy }}/images'
