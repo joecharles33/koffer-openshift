@@ -48,13 +48,13 @@ run_core () {
 test_core () {
   
   echo " >> Testing NGINX Ignition Service"
-  ignTest=$(curl http://localhost:8080/bootstrap.ign 2>&1 1>/dev/null ; echo $?)
+  ignTest=$(curl -s http://localhost:8080/bootstrap.ign 2>&1 1>/dev/null ; echo $?)
   [[ ${ignTest} == '0' ]] \
       && echo "  >> NGINX Ignition Delivery Service Failed!" \
       || echo "  >> NGINX Ignition Delivery Service Online."
 
   echo " >> Testing Docker Registry:2 Service"
-  ignTest=$(curl -u cloudctl:cloudctl -k https://localhost:5000/v2/_catalog 2>&1 1>/dev/null ; echo $?)
+  ignTest=$(curl -s -u cloudctl:cloudctl -k https://localhost:5000/v2/_catalog 2>&1 1>/dev/null ; echo $?)
   [[ ${ignTest} == '0' ]] \
       && echo "  >> Registry Service Failed!" \
       || echo "  >> Registry Service Online. Catalog: $(curl -u cloudctl:cloudctl -k https://localhost:5000/v2/_catalog)"
